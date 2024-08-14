@@ -207,7 +207,7 @@ ${TOOLS_FOLDER}/build_cmxs.sh ${SRCBASE}.ml
 
 TIMER6=`date +%s%3N`
 
-echo "View ${FILEPATH} with options ${OPTIONS}"
+echo "View ${FILEPATH} with options ${OPTIONS}; ${FLAGS}"
 
 # LATER: only do this if error is raised
 make -C ${OPTITRUST_FOLDER} precompile
