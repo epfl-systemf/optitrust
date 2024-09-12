@@ -105,7 +105,7 @@ elif [ "${MODE}" = "full_trace" ] || [ "${MODE}" = "full_trace_from_inter" ]; th
 
   OPTIONS="${OPTIONS} -mode full-trace"
 
-elif [ "${MODE}" = "save_inter" ]; then
+elif [ "${MODE}" = "save_inter" ] || [ "${MODE}" = "build_only" ]; then
 
   # no execution performed, do nothing
   :
@@ -214,6 +214,9 @@ make -C ${OPTITRUST_FOLDER} precompile
 
 # TODO: --no-build
 OCAMLRUNPARAM=b dune exec optitrust_runner -- ${SRCBASE}.cmxs ${OPTIONS} ${FLAGS} || [[ "${MODE}" == *"trace"* ]]
+if [ "${MODE}" = "build_only" ]; then
+  exit 0
+fi
 
 #==========================================================================
 # Open the output

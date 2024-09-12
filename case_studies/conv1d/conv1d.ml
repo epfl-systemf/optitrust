@@ -1,3 +1,6 @@
+(* RUN: pushd ../../ && ./run-docker.sh case_studies/conv1d/$(basename %s) 1>&2 && popd && diff %S/conv1d_out.cpp %S/conv1d_out_ref.cpp
+   *)
+
 open Optitrust
 open Prelude
 open Option
@@ -443,15 +446,4 @@ let _ = Run.script_cpp (fun () ->
   !! loopize_decl ~loop_ind_in:(find_var_in_current_ast "ofs") [cFor "r"; occFirst] [cVarDef "drow_ofs"];
   !! loopize_expr [cFor "tile_j"] "data_base" [sExpr "tile_j * 4"];
   !! loopize_expr [cFor   "k"] "data_row" [sExpr "k * IW"]
-  (*   Variable.bind_multi ~dest:[cArrayWrite "y"; tBefore; occFirst] "dtile_ofs" [sExpr "0 + j * 4 + r"];
-   nuke_nobraces [cFunDef "conv1d"];*)
 )
-
-  (*!! Variable_basic.init_detach [cVarDef "y"];
-  !! Instr_basic.copy  [cWriteVar "y"];
-  !! Expr_basic.replace (stmt "y = 0") [cWriteVar "y"; occFirst];
-  !! Variable_basic.init_attach [cVarDef "y"];*)
-  (* TODO: this step is only _sort of_ valid; it's not going to cause incorrect behavior,
-     unless the access out of bounds crashes the program *)
-  (*!! hoist_if [cIf ()] [cVarDef "y"];*)
-  (*~dest:[tBefore; cFor "i"]*)
